@@ -26,6 +26,7 @@ public class Normaliser {
         Objects.requireNonNull(normalizedWords);
         this.qualityScoreCalculatorList = createQualityScoreCalculatorList(normalizedWords);
     }
+
     private List<QualityScoreCalculator> createQualityScoreCalculatorList(List<String> normalizedWords) {
         return normalizedWords.stream() //
                 .filter(Objects::nonNull) //
@@ -38,6 +39,7 @@ public class Normaliser {
                     ? calcNormalizedWord(word)
                     : "";
     }
+
     private String calcNormalizedWord(String word) {
         Comparator<QualityScoreCalculator> qualityScoreComparator = createQualityScoreComparator(word);
         return qualityScoreCalculatorList.stream() //
@@ -45,6 +47,7 @@ public class Normaliser {
                 .map(QualityScoreCalculator::getNormalizedWord) //
                 .orElse("");
     }
+
     private Comparator<QualityScoreCalculator> createQualityScoreComparator(String word) {
         return Comparator.comparing(qualityScoreCalculator -> qualityScoreCalculator.calcQualityScore(word));
     }

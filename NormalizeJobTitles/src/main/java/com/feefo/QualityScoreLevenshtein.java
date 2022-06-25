@@ -11,6 +11,7 @@ public class QualityScoreLevenshtein implements QualityScoreAlgorithm {
     public QualityScoreLevenshtein() {
         this.levenshteinDistance = LevenshteinDistance.getDefaultInstance();
     }
+
     @Override
     public double calculateQualityScore(String word, String normalizedWord) {
         Objects.requireNonNull(word);
@@ -24,6 +25,7 @@ public class QualityScoreLevenshtein implements QualityScoreAlgorithm {
         Integer currentQualityScore = levenshteinDistance.apply(word, normalizedWord);
         return secondDecimal(1.0 - ((double) currentQualityScore) / Math.max(word.length(), normalizedWord.length()));
     }
+
     private double secondDecimal(double number) {
         return Math.floor(number*100)/100;
     }
